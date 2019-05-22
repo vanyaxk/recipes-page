@@ -1,0 +1,194 @@
+@import 'variables';
+@import 'mixins';
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: $app-font-family;
+    font-size: $app-font-size;
+    line-height: $app-line-height;
+    text-align: center;
+
+    @include desktop {
+        font-size: $app-font-size / 1.5;
+    }
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: $app-default-background-color;
+
+    #app {
+        // margin: 20px 40px 0;
+        padding: 15px;
+        min-height: 100vh;
+
+        h1 {
+            padding: 20px 0;
+            color: $app-default-button-color;
+            text-shadow: 2px 0 10px rgba(255, 255, 255, 1);
+        }
+    }
+}
+
+.recipe-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input {
+        -webkit-appearance: none;
+        outline: none;
+        border: none;
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+
+        &[type='search'] {
+            font-size: 1em;
+            margin: 20px;
+            width: 100%;
+            box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2);
+
+            @include placeholder {
+                font-style: italic;
+                font-size: 1em;
+                line-height: none;
+                letter-spacing: .05em;
+                opacity: 0.3;
+            }
+            
+        }
+
+        
+    }
+
+    button, span {
+        padding: 10px;
+        display: block;
+        color: white;
+        font-size: 1.5em;
+    }
+
+    button {
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        background-color: $app-default-button-color;
+        margin-bottom: 10px;
+        width: 50%;
+        box-shadow: 0 2px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.recipes {
+
+    display: flex;
+    flex-direction: column;
+
+    @include desktop {
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
+
+    .recipe-item {
+        margin: 10px 0;
+        min-height: 800px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+        position: relative;
+
+        @include desktop {
+            width: calc(100% / 3 - 20px);
+        }
+    
+        figure {
+            margin-top: 40px;
+            display: block;
+            width: 100%;
+            img {
+                border-radius: 10px;
+                max-width: 100%;
+            }
+    
+            figcaption {
+                color: $app-default-button-color;
+                text-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+                font-size: 1.5em;
+                margin: 30px 0 20px;
+                padding: 10px;
+            }
+        }
+
+        .healthLabels {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-evenly;
+            span {
+                color: white;
+                font-size: $app-font-size * 0.9;
+                padding: 5px 10px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                background-color: $app-health-labels;
+            }
+        }
+
+        .cautions {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-evenly;
+            span {
+                color: white;
+                font-size: $app-font-size * 0.9;
+                padding: 5px 15px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                background-color: $app-cautions;
+            }
+        }
+
+        ul {
+            list-style: none;
+            margin: 0 20px 60px;
+            text-align: justify;
+
+            li {
+                margin: 10px 0;
+
+                &::before {
+                    content: '🥘';
+                    margin-right: 15px;
+                }
+
+            }
+        }
+
+        a {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            color: white;
+            background: $app-default-button-color;
+            padding: 10px 20px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            transition: background .3s;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+
+            &:hover {
+                background: $app-default-color;
+            }
+        }
+    }
+}
