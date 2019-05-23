@@ -21,7 +21,8 @@ import {
 
 class App extends Component {
     state = {
-        recipes: []
+        recipes: [],
+        favRecipes: []
     }
 
     displayRecipes = (recipes) => {
@@ -32,6 +33,28 @@ class App extends Component {
         });
     }
 
+    // addFavourite = (favouriteName) => {
+    //     const newFavRecipes = this.state.favRecipes.slice();
+    //     newFavRecipes.push(favouriteName);
+
+    //     this.setState( {
+    //         favRecipes: newFavRecipes
+    //     });
+    // }
+
+    toggleFavourite = (favouriteName) => {
+        const newRecipes = this.state.recipes.slice();
+        newRecipes.forEach(recipe => {
+           if (recipe.recipe.label === favouriteName) {
+               recipe.fav = !recipe.fav;
+           }
+       });
+
+       this.setState( {
+           recipes: newRecipes
+       })
+    }
+
     
 
     
@@ -39,16 +62,18 @@ class App extends Component {
         const {recipes} = this.state;
         return (
             <>
-            <Navigation />
-            <HashRouter>
-                <Switch>
-                    <Route path='/searchhistory' component={RecipeSearchHistory}/>
-                    <Route path='favourites' component={FavouriteRecipes} />
-                </Switch>
-            </HashRouter>
-                <Form displayRecipes={this.displayRecipes}/>
+                <HashRouter>
+                    <>
+                    <Navigation />
+                    <Switch>
+                        <Route exact path='/' render = {() => { return <><Form displayRecipes={this.displayRecipes}/>{recipes === [] ? null: <Recipes recipesArr={recipes} toggleFavourite={this.toggleFavourite}/>}</>}}/>
+                        <Route path='/searchhistory' render={() => <RecipeSearchHistory/>} />
+                        <Route path='/favourites' render={() => <FavouriteRecipes test={'ok'} favouriteRecipes={this.state.recipes.filter(recipe => recipe.fav)}/>} />
+                    </Switch>
+                    </>
+                </HashRouter>
                 
-                {recipes === [] ? null: <Recipes recipesArr={recipes}/>}
+                
             </>
         )
 

@@ -31,6 +31,29 @@ body {
         padding: 15px;
         min-height: 100vh;
 
+        > div {
+            > ul {
+                list-style: none;
+                display: flex;
+                justify-content: space-between;
+
+                li {
+                    font-size: .7em;
+
+                    a {
+                        text-decoration: none;
+                        color: $app-default-button-color;
+                        padding: 5px 2px;
+                        border-radius: 5px;
+                        &:hover {
+                            background-color: $app-default-button-color;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+
         h1 {
             padding: 20px 0;
             color: $app-default-button-color;
@@ -109,6 +132,14 @@ body {
         @include desktop {
             width: calc(100% / 3 - 20px);
         }
+
+        .favourite-recipe {
+            padding-top: 40px;
+
+            svg {
+                color: #ff6666;
+            }
+        }
     
         figure {
             margin-top: 40px;
@@ -128,7 +159,7 @@ body {
             }
         }
 
-        .healthLabels {
+        .health-labels {
             display: flex;
             flex-flow: row wrap;
             justify-content: space-evenly;
@@ -191,4 +222,8 @@ body {
             }
         }
     }
+}
+
+.favourite-recipes {
+    list-style: none;
 }

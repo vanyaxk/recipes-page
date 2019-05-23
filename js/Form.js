@@ -35,8 +35,10 @@ class Form extends Component {
                 });
                 throw new Error('Could not find any recipes :(');
             }
+            console.log(data.hits);
             //const newRecipesArr = this.state.recipesArr.slice();
             //newRecipesArr.push(...data.hits);
+            data.hits.forEach(dataItem => dataItem.fav = false);
             this.props.displayRecipes(data.hits);
             this.setState( {
               //  recipesArr: newRecipesArr,
@@ -81,21 +83,20 @@ class Form extends Component {
                             this.fetchData();
                         };
         }
-
-
-        }
+    }
 
 
 
     
     handleCheckInput = (e) => {
+
         this.setState({
             recipe: e.target.value
         })
     }
 
     render() {
-        const {recipe, searching, recipesArr} = this.state;
+        const {recipe, searching} = this.state;
         return (
             <form className="recipe-search" onSubmit={this.handleRecipeSearch}>
                 <h1>Find your recipe!</h1>
