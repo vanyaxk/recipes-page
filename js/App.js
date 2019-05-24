@@ -27,22 +27,12 @@ class App extends Component {
     }
 
     displayRecipes = (recipes, reset = false) => {
-        console.log(recipes);
         const newRecipesArr =  reset ? []: this.state.recipes.slice();
         newRecipesArr.push(...recipes);
         this.setState( {
             recipes: newRecipesArr
         });
     }
-
-    // addFavourite = (favouriteName) => {
-    //     const newFavRecipes = this.state.favRecipes.slice();
-    //     newFavRecipes.push(favouriteName);
-
-    //     this.setState( {
-    //         favRecipes: newFavRecipes
-    //     });
-    // }
 
     toggleFavourite = (favouriteName) => {
         const newRecipes = this.state.recipes.slice();

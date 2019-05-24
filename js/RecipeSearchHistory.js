@@ -6,7 +6,7 @@ class RecipeSearchHistory extends Component {
     }
     render() {
         const {searchHis, addToHis} = this.props;
-        return <h1 onClick={addToHis}>Search History</h1>
+        return <h1 onClick={addToHis}>In development...</h1>
     }
 }
 
