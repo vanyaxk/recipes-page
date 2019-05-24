@@ -8,7 +8,6 @@ class Recipes extends Component {
             isFavourite: false
         }
     }
-
     
 
     // checkFavourites = (favourite) => {
@@ -17,7 +16,6 @@ class Recipes extends Component {
     //     });
     render() {
         const {recipesArr} = this.props;
-        console.log(this.props);
         return (
         <div className='recipes'>
             {recipesArr === false ? null: recipesArr.map((recipe, index) => <RecipeItem key={index} recipe={recipe} toggleFavourite={this.props.toggleFavourite}/>)}

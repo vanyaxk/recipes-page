@@ -4,14 +4,20 @@ class FavouriteRecipes extends Component {
     constructor(props) {
         super(props);
     }
+
     render() {
-        const {favouriteRecipes} = this.props;
-        console.log(favouriteRecipes);
+        const {favouriteRecipes, deleteItems} = this.props;
         console.log(this.props, 'fav-arr');
         return (
-            <ul className='favourite-recipes'>
-                {favouriteRecipes.map(recipe => <li><a href={recipe.recipe.url}>{recipe.recipe.label}</a></li>)}
-            </ul>
+            <>
+                <ul className='favourite-recipes'>
+                    {favouriteRecipes.map((recipe, index) => <li key={index}>
+                                                            <a href={recipe.recipe.url}>{recipe.recipe.label}</a>
+                                                            
+                                                            </li>)}
+                </ul>
+                <button className="delete-all" onClick={deleteItems}>Delete All</button>
+            </>
         );
     }
 }

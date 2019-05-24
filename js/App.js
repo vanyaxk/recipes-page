@@ -22,11 +22,13 @@ import {
 class App extends Component {
     state = {
         recipes: [],
-        favRecipes: []
+        fav: [],
+        searchHis: []
     }
 
-    displayRecipes = (recipes) => {
-        const newRecipesArr = this.state.recipes.slice();
+    displayRecipes = (recipes, reset = false) => {
+        console.log(recipes);
+        const newRecipesArr =  reset ? []: this.state.recipes.slice();
         newRecipesArr.push(...recipes);
         this.setState( {
             recipes: newRecipesArr
@@ -50,12 +52,40 @@ class App extends Component {
            }
        });
 
+       const favRecipes = newRecipes.filter(recipe => recipe.fav);
+       localStorage.setItem('favRecipes', JSON.stringify(favRecipes));
+
        this.setState( {
-           recipes: newRecipes
-       })
+           recipes: newRecipes,
+           fav: favRecipes
+       });
+       
     }
 
+    deleteItems = () => {
+        localStorage.clear();
+        this.setState( {
+            fav: []
+        });
+    }
     
+    addToSearchHistory = () => {
+        this.setState( {
+            searchHis: [...this.state.searchHis, 'new value']
+        })
+    }
+
+    componentDidMount() {
+        let getFav = JSON.parse(localStorage.getItem('favRecipes'));
+
+        if (getFav === null) {
+            getFav = [];
+        }
+
+        this.setState ({ 
+            fav: getFav
+        })
+    }
 
     
     render() {
@@ -66,9 +96,18 @@ class App extends Component {
                     <>
                     <Navigation />
                     <Switch>
-                        <Route exact path='/' render = {() => { return <><Form displayRecipes={this.displayRecipes}/>{recipes === [] ? null: <Recipes recipesArr={recipes} toggleFavourite={this.toggleFavourite}/>}</>}}/>
+                        <Route exact path='/' render = {() => { return (
+                        <>
+                            <Form addToHis={this.addToSearchHistory}
+                            searchHis={this.state.searchHis} 
+                            displayRecipes={this.displayRecipes} />
+                            {recipes === [] ? 
+                            null: 
+                            <Recipes recipesArr={recipes} toggleFavourite={this.toggleFavourite}/>}
+                        </>
+                        )}}/>
                         <Route path='/searchhistory' render={() => <RecipeSearchHistory/>} />
-                        <Route path='/favourites' render={() => <FavouriteRecipes test={'ok'} favouriteRecipes={this.state.recipes.filter(recipe => recipe.fav)}/>} />
+                        <Route path='/favourites' render={() => <FavouriteRecipes deleteItems={this.deleteItems} favouriteRecipes={this.state.fav}/>} />
                     </Switch>
                     </>
                 </HashRouter>

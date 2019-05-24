@@ -28,7 +28,6 @@ class RecipeItem extends Component {
 
     render() {
         const {recipe, toggleFavourite} = this.props;
-        console.log(toggleFavourite);
         const item = recipe.recipe;
         return (
         <div className='recipe-item'>
@@ -44,7 +43,7 @@ class RecipeItem extends Component {
                 <figcaption>{item.label}</figcaption> 
             </figure>
 
-            <div className='healt-labels'>{item.healthLabels.map((healthLabel, index) => <span key={index}>{healthLabel}</span>)}</div>
+            <div className='health-labels'>{item.healthLabels.map((healthLabel, index) => <span key={index}>{healthLabel}</span>)}</div>
             <div className='cautions'>{item.cautions.map((caution, index) => <span key={index}>{caution}</span>)}</div>
             
             <ul>

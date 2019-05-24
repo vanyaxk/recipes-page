@@ -7,12 +7,12 @@ class Form extends Component {
     state = {
         recipe: '',
         searching: false,
-        recipesArr: [],
+        searchHis: []
     }
     from = 0;
     to = 12;
     
-    fetchData = () => {
+    fetchData = (reset = false) => {
         //API Variables
         const appId = 'c56323fd';
         const appKey = 'f56e7cdcde1fcd0405f286b48b970a46';
@@ -36,12 +36,9 @@ class Form extends Component {
                 throw new Error('Could not find any recipes :(');
             }
             console.log(data.hits);
-            //const newRecipesArr = this.state.recipesArr.slice();
-            //newRecipesArr.push(...data.hits);
             data.hits.forEach(dataItem => dataItem.fav = false);
-            this.props.displayRecipes(data.hits);
+            this.props.displayRecipes(data.hits, reset);
             this.setState( {
-              //  recipesArr: newRecipesArr,
                 searching: false,
                 isLoading: false
             })
@@ -65,8 +62,9 @@ class Form extends Component {
             hasMore: true,
             isLoading: false
         });
-
-        this.fetchData();
+        this.from = 0;
+        this.to = 12;
+        this.fetchData(true);
     }
 
     componentWillMount() {
@@ -89,18 +87,22 @@ class Form extends Component {
 
     
     handleCheckInput = (e) => {
-
         this.setState({
-            recipe: e.target.value
-        })
+            recipe: e.target.value,
+        });
+    }
+
+    handleAddSearchHis = (e) => {
+        console.log(this.state.recipe);
     }
 
     render() {
         const {recipe, searching} = this.state;
+        const {searchHis, addToHis} = this.props;
         return (
             <form className="recipe-search" onSubmit={this.handleRecipeSearch}>
                 <h1>Find your recipe!</h1>
-                <input type="search" value={recipe} name="search" placeholder="Enter ingredients or dish" onChange={this.handleCheckInput}/>
+                <input type="search" value={recipe} name="search" placeholder="Enter ingredients or dish" onChange={this.handleCheckInput} required/>
                 {searching ? <span>Searching...</span>: <button type="submit">Search!</button>}
             </form>
         )
