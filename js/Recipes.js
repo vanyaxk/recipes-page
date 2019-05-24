@@ -9,11 +9,6 @@ class Recipes extends Component {
         }
     }
     
-
-    // checkFavourites = (favourite) => {
-    //     this.setState( {
-    //         isFavourite: favourite
-    //     });
     render() {
         const {recipesArr} = this.props;
         return (

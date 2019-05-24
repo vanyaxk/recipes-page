@@ -12,7 +12,7 @@ class FavouriteRecipes extends Component {
             <>
                 <ul className='favourite-recipes'>
                     {favouriteRecipes.map((recipe, index) => <li key={index}>
-                                                            <a href={recipe.recipe.url}>{recipe.recipe.label}</a>
+                                                            <a href={recipe.recipe.url} target="_blank">{recipe.recipe.label}</a>
                                                             
                                                             </li>)}
                 </ul>
